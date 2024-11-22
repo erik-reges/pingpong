@@ -10,7 +10,6 @@ import {
 export const players = pgTable("players", {
   id: serial("id").primaryKey(),
   name: text("name").notNull().unique(),
-  email: text("email").notNull().unique(),
   elo: numeric("elo").notNull().default("1000"), // Add Elo rating field
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
