@@ -28,35 +28,14 @@ import { ArrowUpDown, Trophy, TableIcon as TableTennis } from "lucide-react";
 import { format } from "date-fns";
 import { api } from "../app/libs/api";
 import { useRouter } from "next/navigation";
+import { MatchWithPlayerNames, TPlayer } from "../app/api/[[...slugs]]/route";
 
 export function Pingis({
   players,
   matches,
 }: {
-  players:
-    | {
-        id: number;
-        name: string;
-        elo: string;
-        createdAt: Date;
-      }[]
-    | null;
-  matches:
-    | {
-        id: number;
-        player1: string;
-        player2: {
-          name: string;
-        };
-        player1_score: number;
-        player2_score: number;
-        player1_elo_change: string;
-        player2_elo_change: string;
-        player1_elo_after: string;
-        player2_elo_after: string;
-        played_at: Date;
-      }[]
-    | null;
+  players: TPlayer[] | null;
+  matches: MatchWithPlayerNames[] | null;
 }) {
   const [player1, setPlayer1] = useState("");
   const [player2, setPlayer2] = useState("");

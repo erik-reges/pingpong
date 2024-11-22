@@ -10,6 +10,19 @@ export type TPlayer = typeof players.$inferSelect;
 
 export type Match = typeof matches.$inferSelect;
 export type NewMatch = typeof matches.$inferInsert;
+
+export type MatchWithPlayerNames = {
+  id: number;
+  player1: string;
+  player2: { name: string };
+  player1_score: number;
+  player2_score: number;
+  player1_elo_change: string;
+  player2_elo_change: string;
+  player1_elo_after: string;
+  player2_elo_after: string;
+  played_at: Date;
+};
 const corsConfig = {
   origin: "*",
   methods: ["GET", "POST", "PATCH", "DELETE", "PUT"] as HTTPMethod[],
@@ -22,9 +35,9 @@ const corsConfig = {
 const app = new Elysia({ prefix: "/api" })
   .use(cors(corsConfig))
 
-  .get("/players", async () => {
+  .get("/players", async (): Promise<TPlayer[]> => {
     try {
-      const result = await db.select().from(players);
+      const result: TPlayer[] = await db.select().from(players);
       console.log(result);
       return result;
     } catch (error) {
@@ -121,7 +134,7 @@ const app = new Elysia({ prefix: "/api" })
       }),
     },
   )
-  .get("/matches", async () => {
+  .get("/matches", async (): Promise<MatchWithPlayerNames[]> => {
     return await db
       .select({
         id: matches.id,
