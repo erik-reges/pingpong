@@ -25,7 +25,7 @@ const app = new Elysia({ prefix: "/api" })
   .get("/players", async () => {
     try {
       const result = await db.select().from(players);
-      console.log(players);
+      console.log(result);
       return result;
     } catch (error) {
       console.error("Error fetching players:", error);

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const { data: players } = await api.players.get();
+  console.log(players);
   const { data: matches } = await api.matches.get();
 
   return (
